@@ -1,0 +1,30 @@
+[
+ {
+  "Id": 1,
+  "Name": "bottle",
+  "Price": 5,
+  "Rating": 3.86,
+  "Voted": 7
+ },
+ {
+  "Id": 2,
+  "Name": "kettle",
+  "Price": 30,
+  "Rating": 0,
+  "Voted": 0
+ },
+ {
+  "Id": 3,
+  "Name": "pan",
+  "Price": 25,
+  "Rating": 0,
+  "Voted": 0
+ },
+ {
+  "Id": 4,
+  "Name": "plate",
+  "Price": 10,
+  "Rating": 0,
+  "Voted": 0
+ }
+]
