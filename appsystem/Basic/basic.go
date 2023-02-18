@@ -3,6 +3,7 @@ package Basic
 import (
 	"fmt"
 	"log"
+	"os"
 )
 
 func ErrorHandler(err error) {
@@ -20,4 +21,14 @@ func AskCredentials() (string, string) {
 	_, err = fmt.Scanf("%s\n", &password)
 	ErrorHandler(err)
 	return email, password
+}
+
+func Register(email, password string) {
+	f, err := os.OpenFile("data/login_data.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	ErrorHandler(err)
+
+	defer f.Close()
+
+	_, err = fmt.Fprintln(f, email, password)
+	ErrorHandler(err)
 }
