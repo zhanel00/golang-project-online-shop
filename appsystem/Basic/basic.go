@@ -1,6 +1,7 @@
 package Basic
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
@@ -31,4 +32,31 @@ func Register(email, password string) {
 
 	_, err = fmt.Fprintln(f, email, password)
 	ErrorHandler(err)
+}
+
+func Authorize(email, password string) bool {
+	var logins []string
+
+	f, err := os.Open("data/login_data.txt")
+	ErrorHandler(err)
+
+	Scanner := bufio.NewScanner(f)
+	Scanner.Split(bufio.ScanWords)
+
+	for Scanner.Scan() {
+		logins = append(logins, Scanner.Text())
+	}
+
+	for index := 0; index < len(logins); index += 2 {
+		if logins[index] == email {
+			if logins[index+1] == password {
+				return true
+			} else {
+				return false
+			}
+		} else {
+			return false
+		}
+	}
+	return false
 }

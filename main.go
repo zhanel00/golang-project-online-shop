@@ -15,11 +15,34 @@ func HandleRequest() {
 	http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "html/searchform.html")
 	})
+	http.HandleFunc("/searchprice", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "html/searchformprice.html")
+	})
 	http.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "html/registration.html")
 	})
-	http.HandleFunc("/searchform", Item.PrintByName)
+	http.HandleFunc("/authorize", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "html/authorization.html")
+	})
+	http.HandleFunc("/giverating", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "html/giverating.html")
+	})
+
+	http.HandleFunc("/check", func(w http.ResponseWriter, r *http.Request) {
+		email := r.FormValue("email")
+		password := r.FormValue("password")
+		if Basic.Authorize(email, password) {
+			fmt.Println("Success")
+			fmt.Fprintf(w, "You are authorized")
+		} else {
+			fmt.Println("Try again")
+			http.ServeFile(w, r, "html/authorization.html")
+		}
+	})
+	http.HandleFunc("/searchname", Item.PrintByName)
+	http.HandleFunc("/searchpricefield", Item.PrintByPrice)
 	http.HandleFunc("/items", Item.ReturnAllItems)
+	http.HandleFunc("/ratingfield", Item.PostRating)
 	http.HandleFunc("/success", func(w http.ResponseWriter, r *http.Request) {
 		email := r.FormValue("email")
 		password := r.FormValue("password")
@@ -32,6 +55,7 @@ func HandleRequest() {
 }
 
 func main() {
+	HandleRequest()
 	//var u User = User{}
 	//var authorized bool = false
 	//for true {
@@ -100,5 +124,4 @@ func main() {
 	//		fmt.Println("There is no such function yet")
 	//	}
 	//}
-	HandleRequest()
 }
